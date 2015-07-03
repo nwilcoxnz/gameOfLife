@@ -48,7 +48,6 @@ void Cell::setNeighbours(int n){
 int Cell::getNeighbours(){
 	return numNeighbours;
 }
-
 //////////////////////////////////////////////////////////////////
 
 void init(Cell *cells){ // Randomly initialise a few cells to be alive
@@ -62,27 +61,25 @@ void init(Cell *cells){ // Randomly initialise a few cells to be alive
 			if (b == 4){ cells[pos].setState(true);} 
 			pos++;
 		}
-		pos++;
 	}
 }
 
 void draw(Cell *cells){ // Draw the grid; dead cells are not drawn; live cells are represented by a diamond (ascii 004)
 	int pos = 0;
 	for (int i = 0; i < dimension; i++){
+		cout << i << " ";
 		for (int j = 0; j < dimension; j++){
 			if (cells[pos].isAlive()) {
-				if (pos == 375) cout << "y";
-				else cout << "x ";
+				cout << "x ";
 			}
 			else cout << "  ";
 			pos++;
 		}
-		pos++;
 		cout << endl;
 	}
 }
 
-int numNeighbours(Cell *cells, int index){ // Takes an array of cells and returns the number of neighbours at cell 'index'
+int numNeighbours(Cell *cells, int index){ // Takes an array of cells and returns the number of neighbours at a single cell in that array (at index 'index')
 
 /*  where d = dimension 
 		  x = index
@@ -101,16 +98,16 @@ int numNeighbours(Cell *cells, int index){ // Takes an array of cells and return
 	// Top row
 	temp = index - dimension - 1;
 	for (int i = 0; i < 3; i++){
-		if (temp % ){
+		// if (temp % ){
 			if (cells[temp].isAlive()) num++; // Count this cell if it's alive
 			temp++;
-		}
+		// }
 	}
 
 	// Middle row
 	temp = index - 1;
 	for (int i = 0; i < 3; i++){
-		if (cells[temp].isAlive()) num++; // Count this cell if it's alive
+		if (cells[temp].isAlive() && temp != index) num++; // Count this cell if it's alive
 		temp++;
 	}
 
@@ -120,14 +117,13 @@ int numNeighbours(Cell *cells, int index){ // Takes an array of cells and return
 		if (cells[temp].isAlive()) num++; // Count this cell if it's alive
 		temp++;
 	}
-
 	return num;
 }
 
 void evaluateNeighbours(Cell *cells){ // Evaluates the number of neighbours of every cell
 	int pos = 0;
-	for (int i = 0; i < dimension-1; i++){
-		for (int j = 0; j < dimension-1; j++){
+	for (int i = 0; i < dimension; i++){
+		for (int j = 0; j < dimension; j++){
 			cells[pos].setNeighbours(numNeighbours(cells, pos)); // Find the number of neighbours a cell has
 			pos++;
 		}
@@ -136,38 +132,40 @@ void evaluateNeighbours(Cell *cells){ // Evaluates the number of neighbours of e
 }	
 
 void update(Cell *cells){ // Updates which cells should be alive or dead
-	for (int i = 0; i < (dimension*dimension)-1; i++){
+	for (int i = 0; i < 420; i++){
 		if (cells[i].isAlive()){ // If a cell is alive
 			if (cells[i].getNeighbours() < 2){ // If a live cell has less than two live neighbours it dies
 				cells[i].setState(false);
+				cout << "setting cell " << i << " to false" << endl;
 			}
 
-			 // (Implicit) If a cell has two or three live neighbours it remains alive
+			// (Implicit) If a cell has two or three live neighbours it remains alive
 
-			if (cells[i].getNeighbours() > 3){ // If a cell has more than three live neighbours it dies
+			else if (cells[i].getNeighbours() > 3){ // If a cell has more than three live neighbours it dies
 				cells[i].setState(false);
+				cout << "setting cell " << i << " to false" << endl;
 			}
 		}
 		else { // If a cell is dead
 			if (cells[i].getNeighbours() == 3){ 	// If a cell has exactly three live neighbours it will now be alive
 				cells[i].setState(true);
+				cout << "setting cell " << i << " to true" << endl;
 			}
 		}
 	}
 }
 
-
 int main(){
 
 	Cell *cells = new Cell[400]; // Represents the entire grid
-
+	// cells[19].setState(true);
 	init(cells);
 
 	for (int i = 0; i < 10; i++){
 		draw(cells);
 		evaluateNeighbours(cells);
 		update(cells);
-		cout << "-------------------------------------" << endl << endl << "neighbours: " << numNeighbours(cells,375) << endl;
+		cout << "-------------------------------------" << endl << endl;
 		getch();
 	}
 
