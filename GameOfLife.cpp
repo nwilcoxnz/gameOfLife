@@ -57,7 +57,7 @@ void init(Cell *cells){ // Randomly initialise a few cells to be alive
 	for (int i = 0; i < dimension; i++){
 		for (int j = 0; j < dimension; j++){
 			// srand(time(0));
-			b = rand() % 10; // 1/5 chance a cell will be set to live
+			b = rand() % 8; // 1/5 chance a cell will be set to live
 			if (b == 4){ cells[pos].setState(true);} 
 			pos++;
 		}
@@ -136,20 +136,20 @@ void update(Cell *cells){ // Updates which cells should be alive or dead
 		if (cells[i].isAlive()){ // If a cell is alive
 			if (cells[i].getNeighbours() < 2){ // If a live cell has less than two live neighbours it dies
 				cells[i].setState(false);
-				cout << "setting cell " << i << " to false" << endl;
+				// cout << "setting cell " << i << " to false" << endl;
 			}
 
 			// (Implicit) If a cell has two or three live neighbours it remains alive
 
 			else if (cells[i].getNeighbours() > 3){ // If a cell has more than three live neighbours it dies
 				cells[i].setState(false);
-				cout << "setting cell " << i << " to false" << endl;
+				// cout << "setting cell " << i << " to false" << endl;
 			}
 		}
 		else { // If a cell is dead
 			if (cells[i].getNeighbours() == 3){ 	// If a cell has exactly three live neighbours it will now be alive
 				cells[i].setState(true);
-				cout << "setting cell " << i << " to true" << endl;
+				// cout << "setting cell " << i << " to true" << endl;
 			}
 		}
 	}
@@ -160,7 +160,7 @@ int main(){
 	Cell *cells = new Cell[400]; // Represents the entire grid
 	init(cells);
 
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 20; i++){
 		draw(cells);
 		evaluateNeighbours(cells);
 		update(cells);
