@@ -164,7 +164,7 @@ int main(){
 		draw(cells);
 		evaluateNeighbours(cells);
 		update(cells);
-		cout << "-------------------------------------" << endl << endl;
+		cout << "--------------------------------------" << endl << endl;
 		getch();
 	}
 
