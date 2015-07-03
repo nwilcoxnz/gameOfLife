@@ -158,7 +158,6 @@ void update(Cell *cells){ // Updates which cells should be alive or dead
 int main(){
 
 	Cell *cells = new Cell[400]; // Represents the entire grid
-	// cells[19].setState(true);
 	init(cells);
 
 	for (int i = 0; i < 10; i++){
@@ -170,7 +169,3 @@ int main(){
 	}
 
 }
-
-
-
-
