@@ -18,3 +18,7 @@ Implementation
 * Currently the board is 20 x 20 cells wide (this can be modified) 
 * The board consists of a one-dimensional array of Cell objects which have various member functions and attributes
 * The cells do wrap around but further testing is required to ensure the behaviour is completely correct
+
+```
+Requires further testing but works for the most part
+```
