@@ -236,8 +236,8 @@ int numNeighbours(Cell *cells, int index){ // Takes an array of cells and return
 		temp++;
 	}
 	//////////////////////////
-	if (index == 398) cout << "naybuz " << num << endl;
-	if (num != 0 && cells[index].isAlive()) cout << "Cell " << index << " has " << num << " neighbours" << endl;
+	// if (index == 398) cout << "naybuz " << num << endl;
+	// if (num != 0 && cells[index].isAlive()) cout << "Cell " << index << " has " << num << " neighbours" << endl;
 	return num;
 }
 
